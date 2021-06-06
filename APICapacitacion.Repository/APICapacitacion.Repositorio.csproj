@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\APICapacitacion.Interface\APICapacitacion.Clases.csproj" />
+    <ProjectReference Include="..\APICapacitacion.IRepository\APICapacitacion.IRepositorio.csproj" />
+    <ProjectReference Include="..\APICapacitacion.Model\APICapacitacion.Entidades.csproj" />
+  </ItemGroup>
+
+</Project>
