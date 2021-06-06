@@ -59,7 +59,7 @@ namespace APICapacitacion.API.Controllers
         }
 
         [HttpGet("{Id}")]
-        public async Task<ActionResult<Genero>> ObtenerGeneroPorId([FromQuery] int Id)
+        public async Task<ActionResult<Genero>> ObtenerGeneroPorId([FromRoute] int Id)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace APICapacitacion.API.Controllers
         }
 
         [HttpGet("{Id}/fn")]
-        public async Task<ActionResult<Genero>> ObtenerGeneroPorId_FN([FromQuery] int Id)
+        public async Task<ActionResult<Genero>> ObtenerGeneroPorId_FN([FromRoute] int Id)
         {
             try
             {

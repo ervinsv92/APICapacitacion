@@ -2,6 +2,7 @@
 using APICapacitacion.IRepositorio;
 using APICapacitacion.Model;
 using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -75,9 +76,8 @@ namespace APICapacitacion.Repositorio
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "SP_ObtenerGeneroPorId_FN";
+                cmd.Parameters.Add("e_disp", OracleDbType.RefCursor).Direction = ParameterDirection.ReturnValue;
                 cmd.Parameters.Add(new OracleParameter("idP", Id)).Direction = ParameterDirection.Input;
-                cmd.Parameters.Add("e_disp", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
-
                 dataset = new DataSet();
                 da = new OracleDataAdapter(cmd);
                 da.Fill(dataset);
