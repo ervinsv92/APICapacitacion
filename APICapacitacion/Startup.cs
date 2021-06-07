@@ -36,8 +36,8 @@ namespace APICapacitacion.API
         public void ConfigureServices(IServiceCollection services)
         {
             //TODO: 2- Configurar clase de conexión de BD, se inyecta con la conexión desde aquí
-            services.AddTransient<ConexionBD>(_ => new ConexionBD(Configuration["ConnectionStrings:DefaultConnection"]));
-
+            services.AddScoped<ConexionBD>(_ => new ConexionBD(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddScoped<LlaveUsuario>(_ => new LlaveUsuario());
             //TODO: Inyeccion de otras clases
             services.AddScoped<IHelperJWT, HelperJWT>();
 

@@ -15,8 +15,10 @@ namespace APICapacitacion.Repositorio
     {
         //TODO: 4- Repositorio que implementa la interfaz de repositorio de genero
         private readonly ConexionBD _conexionBD;
-        public GeneroRepositorio(ConexionBD conexionBD) {
+        private readonly LlaveUsuario _llaveUsuario;
+        public GeneroRepositorio(ConexionBD conexionBD, LlaveUsuario llaveUsuario) {
             this._conexionBD = conexionBD;
+            this._llaveUsuario = llaveUsuario;
         }
 
         async Task IGeneroRepositorio.ActualizarGenero(Genero genero)
@@ -66,6 +68,7 @@ namespace APICapacitacion.Repositorio
 
         async Task<Genero> IGeneroRepositorio.ObtenerGeneroPorId_FN(int Id)
         {
+            string llave1 = _llaveUsuario.LlaveUno;
             Genero genero = null;
             DataSet dataset;
             OracleDataAdapter da;

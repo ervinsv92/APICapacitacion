@@ -21,11 +21,13 @@ namespace APICapacitacion.API.Controllers
         //TODO: 5- Controlador del repositorio de genero
         private readonly IGeneroRepositorio _generoRespositorio;
         private readonly IHelperJWT _helperJwt;
+        private readonly LlaveUsuario _llaveUsuario;
 
-        public GeneroController(IHelperJWT helperJwt, IGeneroRepositorio generoRepositorio)
+        public GeneroController(IHelperJWT helperJwt, IGeneroRepositorio generoRepositorio, LlaveUsuario llaveUsuario)
         {
             this._helperJwt = helperJwt;
             this._generoRespositorio = generoRepositorio;
+            this._llaveUsuario = llaveUsuario;
         }
 
 
@@ -83,6 +85,9 @@ namespace APICapacitacion.API.Controllers
         {
             try
             {
+                _llaveUsuario.LlaveUno = "Llave 1";
+                _llaveUsuario.LlaveDos = "Llave 2";
+                _llaveUsuario.LlaveTres = "Llave 3";
                 Genero genero = await this._generoRespositorio.ObtenerGeneroPorId_FN(Id);
 
                 if (genero == null)
