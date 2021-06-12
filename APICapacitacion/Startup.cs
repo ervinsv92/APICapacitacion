@@ -5,12 +5,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using APICapacitacion.API.Middlewares;
 using APICapacitacion.Clases;
 using APICapacitacion.IRepositorio;
 using APICapacitacion.Repositorio;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -58,9 +60,10 @@ namespace APICapacitacion.API
 
             services.AddControllers();
 
-            
+
             //TODO: Swagger
-            services.AddSwaggerGen(config => {
+            services.AddSwaggerGen(config =>
+            {
                 config.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -85,7 +88,8 @@ namespace APICapacitacion.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(config => {
+            app.UseSwaggerUI(config =>
+            {
                 config.SwaggerEndpoint("/swagger/v1/swagger.json", "Mi API V1");
                 config.RoutePrefix = string.Empty;
             });
@@ -96,16 +100,22 @@ namespace APICapacitacion.API
             }
 
             app.UseRouting();
+
             //TODO: cors para permitir que cualquier url acceda a nuestro api
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             //TODO: Para que se autorizen los controladores por medio del JWT
             app.UseAuthorization();
             app.UseAuthentication();
-
+           // app.UseMiddleware<HeadsMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                app.UseWhen(context => !context.Request.Path.Value.Contains("/api/sesion"),
+                    appBuilder =>
+                    {
+                        appBuilder.UseMiddleware<HeadsMiddleware>();
+                    });
             });
         }
     }

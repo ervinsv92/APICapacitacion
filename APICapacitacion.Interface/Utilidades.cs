@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
@@ -20,6 +21,12 @@ namespace APICapacitacion.Clases
                 rows.Add(row);
             }
             return rows;
+        }
+
+        public static void EscribirLlavesUsuario(LlaveUsuario llaveUsuario, HttpRequest request) {
+            llaveUsuario.LlaveUno = request.Headers["Clave1"];
+            llaveUsuario.LlaveDos = request.Headers["Clave2"];
+            llaveUsuario.LlaveTres = request.Headers["Clave3"];
         }
     }
 }

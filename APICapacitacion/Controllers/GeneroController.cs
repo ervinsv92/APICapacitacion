@@ -85,9 +85,7 @@ namespace APICapacitacion.API.Controllers
         {
             try
             {
-                _llaveUsuario.LlaveUno = "Llave 1";
-                _llaveUsuario.LlaveDos = "Llave 2";
-                _llaveUsuario.LlaveTres = "Llave 3";
+                Utilidades.EscribirLlavesUsuario(_llaveUsuario, Request);
                 Genero genero = await this._generoRespositorio.ObtenerGeneroPorId_FN(Id);
 
                 if (genero == null)
