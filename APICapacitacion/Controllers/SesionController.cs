@@ -40,5 +40,10 @@ namespace APICapacitacion.API.Controllers
                 return NotFound("Usuario o contraseña incorrectos.");
             }
         }
+
+        [HttpGet("tipo_cambio_compra")]
+        public async Task<ActionResult<double>> GetTipoCambioCompra() {
+            return Ok(RestFulHelper.GetMethodCall());
+        }
     }
 }
