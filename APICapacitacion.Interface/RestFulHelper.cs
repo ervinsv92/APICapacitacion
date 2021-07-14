@@ -12,7 +12,6 @@ namespace APICapacitacion.Clases
     {
         public static double GetMethodCall()
         {
-
             double tipoCambioCompra = 0;
             var client = new RestClient("https://gee.bccr.fi.cr/");
             //client.Authenticator = new HttpBasicAuthenticator("username", "password");

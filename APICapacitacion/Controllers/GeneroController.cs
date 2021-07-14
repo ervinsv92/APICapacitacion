@@ -136,5 +136,18 @@ namespace APICapacitacion.API.Controllers
                 return BadRequest(err);
             }
         }
+
+        [HttpGet("{param}/test")]
+        public async Task<ActionResult<List<string>>> Test([FromRoute] int param)
+        {
+            try
+            {
+                return await this._generoRespositorio.Test(param);
+            }
+            catch (Exception err)
+            {
+                return BadRequest(err);
+            }
+        }
     }
 }

@@ -159,5 +159,47 @@ namespace APICapacitacion.Repositorio
                 await cmd.ExecuteNonQueryAsync();
             }
         }
+
+        public async Task<List<string>> Test(int param)
+        {
+            List<string> listaExistencias = null;
+            DataSet dataSet;
+            OracleDataAdapter dataAdapter;
+
+            using (OracleConnection con = new OracleConnection(_conexionBD.StringConexion))
+            {
+                await con.OpenAsync();
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandText = "TEST ";
+                cmd.Parameters.Add("return", OracleDbType.RefCursor).Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add("p_param ", param);
+                //cmd.Parameters.Add("mensaje ", OracleDbType.NVarchar2,4000).Direction = ParameterDirection.Output;
+                OracleParameter paramError = cmd.Parameters.Add("mensaje", OracleDbType.NVarchar2, 4000);
+                paramError.Direction = ParameterDirection.Output;
+
+                dataSet = new DataSet();
+                dataAdapter = new OracleDataAdapter(cmd);
+                dataAdapter.Fill(dataSet);
+                //await cmd.ExecuteNonQueryAsync();
+                await cmd.Connection.CloseAsync();
+
+                //var error = cmd.Parameters["mensaje"].Value;
+                var error = paramError.Value;
+
+                if (dataSet.Tables[0].Rows.Count > 0)
+                {
+
+                    listaExistencias = new List<string>();
+
+                    foreach (DataRow row in dataSet.Tables[0].Rows)
+                    {
+                        listaExistencias.Add(row["ID"].ToString());
+                    }
+                }
+
+                return listaExistencias;
+            }
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace APICapacitacion.IRepositorio
         Task<Genero> ObtenerGeneroPorId(int Id);
         Task<Genero> ObtenerGeneroPorId_FN(int Id);
         Task<List<Genero>> ObtenerListaGeneros();
+        Task<List<string>> Test(int param);
     }
 }
